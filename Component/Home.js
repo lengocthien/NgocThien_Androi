@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import SearchBar from "./home/search"
+import SearchBar from "./Search/search"
 import Categories from "./home/Category"
 import SliderContainer from "./home/slider"
 import AllProduct from "./home/AllProduct"

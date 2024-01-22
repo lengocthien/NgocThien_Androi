@@ -1,7 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 
 const Main = ({navigation}) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+
+    const handleRegister = () => {
+        if (email === "" || password === "" || confirmPassword === "") {
+            Alert.alert('Vui lòng nhập đầy đủ thông tin !');
+        }
+        else {
+            if (password !== confirmPassword) {
+                Alert.alert('Mật khẩu không khớp !');
+            }
+            else {
+                const newAccount = {
+                    email: email,
+                    password: password,
+                };
+                addRegister(newAccount);
+            }
+        }
+    }
+
+    const addRegister = async (itemAccount) => {
+        try {
+            const existingUserItems = await AsyncStorage.getItem('userItems');
+            let userItems = [];
+            if (existingUserItems) {
+                userItems = JSON.parse(existingUserItems);
+            }
+
+            // Kiểm tra xem email đã tồn tại trong danh sách đăng ký chưa
+            const existingUserIndex = userItems.findIndex(
+                (item) => item.email === itemAccount.email
+            );
+
+            if (existingUserIndex !== -1) {
+                Alert.alert('Tài khoản đã tồn tại');
+            } else {
+                const newAccount = {
+                    ...itemAccount
+                };
+                userItems.push(newAccount);
+                await AsyncStorage.setItem('userItems', JSON.stringify(userItems));
+                console.log('aaa', userItems);
+                alert('Đăng ký tài khoản thành công');
+                navigation.navigate('Login');
+            }
+        } catch (error) {
+            console.log('Error adding account:', error);
+        }
+    };
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -13,29 +66,37 @@ const Main = ({navigation}) => {
                     <Text>Please sign in to your account</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Email"
+                        placeholder="User Name"
+                        keyboardType="input your email-address"
+                        value={email}
+                        onChangeText={(value) => setEmail(value)}
                        
                     />
-                    <TextInput
+                    {/* <TextInput
                         style={styles.input}
                         placeholder="User Name"
-                    />
+                    /> */}
                     <TextInput
                         style={styles.input}
                         placeholder="Password"
                         secureTextEntry
+                        value={password}
+                        onChangeText={(value) => setPassword(value)}
                     />
                     <TextInput
-                        style={styles.input}
-                        placeholder="Confirm password"
-                        secureTextEntry
+                       style={styles.input}
+                       placeholder="confirmPassword"
+                       secureTextEntry
+                       value={confirmPassword}
+                       onChangeText={(value) => setConfirmPassword(value)}
                     />
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => navigation.navigate('Login')}
+                        onPress={handleRegister}
                     >
                         <Text style={styles.buttonText}>Register</Text>
                     </TouchableOpacity>
+                    
                 </View>
             </ScrollView>
         </View>

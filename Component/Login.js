@@ -1,8 +1,49 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 
 const Main = ({navigation}) => {
+    const [user, setUser] = useState([]);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    useEffect(() => {
+        getUserItems();
+        
+      }, []);
+      const getUserItems = async () => {
+        try {
+          const existingUserItems = await AsyncStorage.getItem('userItems');
+    
+          if (existingUserItems) {
+            const parsedUserItems = JSON.parse(existingUserItems);
+            setUser(parsedUserItems);
+          }
+        } catch (error) {
+          console.log('Error retrieving cart items:', error);
+        }
+      };
+
+      const handleLogin = () =>{
+        if(email === "" || password === ""){
+            // Alert.alert('Vui lòng nhập email và password');
+            alert('Vui lòng nhập email và password');
+        }
+        else
+        {
+            const matchedUser = user.find((userData) => userData.email === email && userData.password === password);
+            if (matchedUser) {
+                // Alert.alert('Login successful');
+                alert('Đăng nhập thành công');
+                navigation.replace('Home');
+              } else {
+                // Alert.alert('Invalid email or password');
+                alert('Sai mật khẩu hoặc email');
+              }
+        }
+      }
+
     return (
+        
         <View style={styles.container}>
             <View style={styles.content}>
                 <Image
@@ -15,19 +56,24 @@ const Main = ({navigation}) => {
                     style={styles.input}
                     placeholder="User Name"
                     keyboardType="input your email-address"
+                    value={email}
+                    onChangeText={(value) => setEmail(value)}
                 />
                 <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    secureTextEntry
+                   style={styles.input}
+                   placeholder="Password"
+                   secureTextEntry
+                   value={password}
+                   onChangeText={(value) => setPassword(value)}
                 />
                 
                 <TouchableOpacity
                         style={styles.button}
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={handleLogin}
                     >
                         <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
+                
                
             </View>
         </View>

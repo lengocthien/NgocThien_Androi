@@ -46,16 +46,17 @@ import Setting from './Component/home/Setting';
 
 import Profile from './Component/home/Profile';
 import Nofication from './Component/home/Nofication';
-<<<<<<< HEAD
-import Payment from './Component/home/Payment';
+import Pay from './Component/home/Payment';
+import Product from './Component/ProductCategory/Product';
+import SearchProduct from './Component/Search/SearchProduct';
 
-=======
->>>>>>> 588824857e84aea27a7c4e3b57e78d393c96fb79
+
+
 
 
 import Login from './Component/Login';
 import ProductDetail from './Component/home/ProductDetail';
-import Cart from './Component/home/Cart';
+import Cart from './Component/Cart/Cart';
 
 const Stack = createStackNavigator();
 
@@ -70,13 +71,12 @@ export default function App() {
       <Stack.Screen name="Setting" component={Setting} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Nofication" component={Nofication} />
-<<<<<<< HEAD
-      <Stack.Screen name="Payment" component={Payment} />
-
-=======
->>>>>>> 588824857e84aea27a7c4e3b57e78d393c96fb79
+      <Stack.Screen name="Pay" component={Pay} />
+      <Stack.Screen name="SearchProduct" component={SearchProduct} />
 
 
+
+      <Stack.Screen name="Product" component={Product} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="ProductDetail" component={ProductDetail} />

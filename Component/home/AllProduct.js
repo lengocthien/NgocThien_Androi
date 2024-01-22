@@ -33,11 +33,7 @@ const AllProduct = () => {
   return (
     <View style={styles.container}>
       <View style={styles.catetitle}>
-<<<<<<< HEAD
         <Text style={styles.titleText}>Tất cả sản phẩm</Text>
-=======
-        <Text style={styles.titleText}>Sản phẩm</Text>
->>>>>>> 588824857e84aea27a7c4e3b57e78d393c96fb79
         <Text style={styles.viewMoreText}>Xem thêm</Text>
       </View>
       <FlatList
