@@ -52,25 +52,8 @@ const Pay = ({navigation}) => {
         />
       </View>
 
-      <View style={styles.formGroup}>
-        <Text style={styles.label}>Địa chỉ</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nhập địa chỉ"
-          value={cvv}
-          onChangeText={setCVV}
-        />
-      </View>
 
-      <View style={styles.paymentOptions}>
-        <Text style={styles.paymentLabel}>Chọn phương thức thanh toán</Text>
-        <View style={styles.paymentIcons}>
-          <FontAwesome name="cc-mastercard" size={40} color="#FF6F00" style={styles.paymentIcon} />
-          <FontAwesome name="cc-paypal" size={40} color="#00457C" style={styles.paymentIcon} />
-          <FontAwesome name="cc-visa" size={40} color="#6772E5" style={styles.paymentIcon} />
-        </View>
-      </View>
-
+      
       <TouchableOpacity style={styles.button} onPress={handlePay}>
         <Text style={styles.buttonText}>Thanh toán</Text>
       </TouchableOpacity>
@@ -115,13 +98,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
   },
-  paymentIcons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  paymentIcon: {
-    marginRight: 10,
-  },
+ 
   button: {
     backgroundColor: '#ee4d2d',
     paddingVertical: 12,
